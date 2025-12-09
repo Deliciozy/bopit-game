@@ -100,6 +100,14 @@ Example of the finished enclosure:
 
 <img src="docs/Enclosure.png" width="380">
 
+🧩 Enclosure Design Rationale
+
+The main objective of my enclosure design was to clearly separate the power control switch from the in-game action button, ensuring that players would not confuse the two during gameplay. To accomplish this, I placed the power switch and the gameplay button on two different faces of the enclosure.
+
+Since the game includes actions that require the player to shake the device, I intentionally avoided permanently gluing the buttons to the outer surface. Instead, I allowed both buttons to remain slightly flexible and loosely mounted within their openings. This prevents damage during shaking and provides a more comfortable interactive experience.
+
+For ease of use and better visibility, I positioned the OLED screen and the two main interactive buttons on the same face of the device. This allows players to view on-screen instructions and press the required buttons without rotating the device during a game round.
+
 Designed to:
 
 Protect internal electronics
