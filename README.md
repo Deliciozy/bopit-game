@@ -1,63 +1,60 @@
-🕹️ Bop-It Style Handheld Game (ESP32-C3 + CircuitPython)
+📘 Bop-It Style Handheld Game (ESP32-C3 + CircuitPython)
 
-A 90s-style handheld electronic reaction game inspired by Bop It / Brain Warp, built using an ESP32-C3 microcontroller, SSD1306 OLED display, ADXL345 accelerometer, rotary encoder, LiPo battery, NeoPixel LED, and custom enclosure.
+A 90s-style handheld electronic reaction game inspired by Bop It and Brain Warp, built with an ESP32-C3, SSD1306 OLED, ADXL345 accelerometer, rotary encoder, push button, NeoPixel, LiPo battery, and a custom wooden enclosure.
 
-This project was designed and implemented as part of an embedded systems course, demonstrating sensor integration, real-time game logic, input processing, and hardware design.
+This project demonstrates real-time embedded game logic, sensor fusion, input processing, and hardware integration as part of an embedded systems course.
 
-📦 How to Play
+🎮 How to Play
 
-Power on the device using the back power switch.
+Power on the device using the back-mounted toggle switch.
 
-Use the rotary encoder to scroll through three difficulty levels:
+Use the rotary encoder to scroll through the three difficulty modes:
 
-Easy (slow timer)
+Easy (long timer)
 
 Medium
 
-Hard (fast timer)
+Hard (short timer)
 
-Press the external button to confirm difficulty and start.
+Press the main action button to confirm difficulty and start the game.
 
-Each level, the OLED shows a random command:
+Each level, the OLED displays a random move:
 
-TURN LEFT → rotate encoder counterclockwise
+TURN LEFT → rotate encoder CCW
 
-TURN RIGHT → rotate encoder clockwise
+TURN RIGHT → rotate encoder CW
 
 SHAKE → shake the whole device
 
-PRESS BTN → press the main external button
+PRESS BTN → press the main action button
 
-You must perform the move within the time limit, which shortens as levels increase.
+Perform the move before the timer expires.
 
-If correct → next level
+✔ Correct → next level
+✖ Wrong OR timeout → Game Over
+🔁 Press button to restart without turning power off
+🏆 Clear all 10 levels → YOU WIN!
 
-If wrong or timeout → Game Over
-
-Press button to restart without power-cycling
-
-Beat all 10 levels → YOU WIN!
-
-NeoPixel LED acts as a state indicator throughout gameplay.
+The NeoPixel LED provides visual cues for game states (start, level change, win, game over).
 
 🧩 Components Used
 Microcontroller
 
-Seeed Studio XIAO ESP32-C3 (running CircuitPython)
+Seeed Studio XIAO ESP32-C3 running CircuitPython
 
-Sensors / Inputs
+Inputs
 
-Rotary Encoder (direction input)
+Rotary Encoder (A/B channels)
 
-External Button (game actions)
+External Push Button
 
 ADXL345 Accelerometer (shake detection)
 
 Outputs
 
-SSD1306 128×64 OLED Display (game UI)
+SSD1306 128×64 OLED Display
 
-WS2812 NeoPixel LED (status indicator)
+WS2812 NeoPixel RGB LED
 
 Power
 
@@ -65,41 +62,35 @@ LiPo Battery
 
 Physical On/Off Toggle Switch
 
-Battery wired through switch into ESP32 BAT pin
-
-Device powered without USB
+Battery connected to ESP32-C3 BAT pin (not USB-powered)
 
 Enclosure
 
-Laser-cut wooden box with:
+Custom laser-cut wood box
 
-Hole for encoder shaft
+Cutouts for encoder, button, USB-C, and LCD window
 
-Opening for main action button
-
-Side cutout for USB-C access
-
-Removable lid for electronics
+Removable lid for access to electronics
 
 🧠 System Block Diagram
 
 🔌 Circuit Diagram
 
-The full circuit schematic is included as a PDF exported from KiCad:
+Full KiCad schematic exported as PDF:
 
 📄 bopit_circuit.pdf
 
-This includes wiring for:
+Includes wiring for:
 
-I²C bus (OLED + accelerometer)
+I²C bus (OLED + ADXL345)
 
-Rotary encoder A/B channels
+Rotary encoder A/B input channels
 
-Input button with pull-up
+External button (digital input with internal pull-up)
 
-NeoPixel data + power
+NeoPixel data + 3.3V power
 
-Battery and power switch
+Battery + switch power path
 
 ESP32-C3 pin assignments
 
@@ -107,75 +98,64 @@ ESP32-C3 pin assignments
 
 Example of the finished enclosure:
 
-<img src="docs/Enclosure.png" width="350">
+<img src="docs/Enclosure.png" width="380">
 
 Designed to:
 
-Protect electronics
+Protect internal electronics
 
-Provide solid mounting for sensors and buttons
+Provide stable mounting for encoder/button
 
-Allow easy access to battery and USB-C port
+Allow USB-C access
+
+Enable easy assembly and maintenance
 
 🗂️ Repository Structure
 bopit-game/
 │
-├── code/                # main CircuitPython code
-│   └── code.py
+├── code/
+│   └── code.py              # Main CircuitPython game logic
 │
-├── lib/                 # required CircuitPython libraries
+├── lib/                     # CircuitPython libraries
 │
 ├── docs/
-│   ├── system_diagram.png
-│   ├── bopit_circuit.pdf
-│   ├── Enclosure.png
-│   └── bopit_circuit/   # KiCad source files
+│   ├── system_diagram.png   # System block diagram
+│   ├── bopit_circuit.pdf    # Circuit schematic
+│   ├── Enclosure.png        # Enclosure photo
+│   └── bopit_circuit/       # KiCad project files
 │
 └── README.md
 
 🚀 How to Run the Game
 
-Install CircuitPython on the XIAO ESP32-C3
+Install CircuitPython on the Seeed Studio XIAO ESP32-C3.
 
-Copy the following into the ESP32 CIRCUITPY drive:
+Copy the following to the CIRCUITPY USB drive:
 
-/code/code.py
+code/code.py
 
-/lib folder with required libraries
+lib/ folder with required libraries
 
-Disconnect USB and power via LiPo battery
+Disconnect USB.
 
-Flip the power switch — the game begins!
+Power the device using the LiPo battery.
 
-🧪 Features Checklist (Matches Course Requirements)
+Flip the toggle switch → Game Starts!
 
-✔ 3 difficulty modes
-✔ Minimum 4 player input actions
-✔ Time-limited moves
-✔ 10+ increasing levels
-✔ OLED shows level & move
-✔ Game Over + restart without power cycle
-✔ Win screen
-✔ Accelerometer calibrated + filtered
-✔ NeoPixel integrated
-✔ LiPo battery + safe power switch
-✔ Complete schematic diagram
-✔ System block diagram
-✔ Enclosure demonstrating proper hardware housing
-✔ Organized GitHub repo
-
-✅ 9. Requirements Checklist
+✔️ Features Checklist (Matches Course Requirements)
 Requirement	Status
-Three difficulty settings	✔ Implemented
-Four unique player moves	✔ TURN LEFT / RIGHT, SHAKE, PRESS
-Time-limited input	✔ Timer shown on OLED
-Ten levels	✔ LEVEL 1–10
-OLED shows Level + Move	✔ Yes
-Game Over screen	✔ Yes
-Restart without power cycle	✔ Yes
-Win screen	✔ Rainbow animation
-Sensor calibration/filtering	✔ ADXL345 EMA filter + calibration
-NeoPixel used in gameplay	✔ Status indicator
-Proper battery + switch wiring	✔ Implemented
-Enclosure	✔ Screwed, printed enclosure
-GitHub repo includes code, diagrams, README	✔ Yes
+Three difficulty settings	✔
+Four unique player moves	✔
+Time-limited input	✔
+Ten levels	✔
+OLED shows current move + level	✔
+Game Over screen	✔
+Restart without power cycling	✔
+Win screen	✔ (rainbow NeoPixel animation)
+Accelerometer filtering/calibration	✔
+NeoPixel integrated into gameplay	✔
+Proper battery + switch wiring	✔
+Circuit diagram	✔
+System block diagram	✔
+Enclosure	✔
+Clean, organized GitHub repo	✔
